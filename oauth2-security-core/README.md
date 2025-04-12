@@ -11,6 +11,23 @@ This shared library provides a flexible and configurable Spring Security setup f
 - Configurable authority-based access control rules
 - CORS configuration support
 
+## Auto-Configuration
+
+The Core Security Shared Library is designed for **auto-configuration** in Spring Boot applications. By simply adding the dependency and providing configuration settings in your `application.yml` or `application.properties` file, the library will automatically configure essential security features for your application.
+
+### Key Features of Auto-Configuration:
+
+- **OAuth2 Resource Server**: Configures your application as an OAuth2 resource server, including automatic JWT validation based on the provided `jwk-set-uri`.
+- **CORS Configuration**: Automatically applies CORS settings, including allowed origins, methods, and headers, based on your application's configuration.
+- **Permit-All URL Patterns**: Automatically exposes URL patterns (like `/public/**`, `/health`, etc.) to be excluded from authentication, making it easy to define public endpoints.
+- **Role-Based Authority Rules**: Automatically secures endpoints and enforces role-based access control using the `authority-rules` defined in the configuration file.
+
+Once the dependency is added and the configuration is provided, the security features are automatically enabled without any manual intervention. This allows for easy and fast security setup with minimal code changes.
+
+No custom configuration or additional setup is required, making it ideal for applications that need quick and standardized security settings.
+
+---
+
 ## How to Use
 
 ### 1. Add Dependency
