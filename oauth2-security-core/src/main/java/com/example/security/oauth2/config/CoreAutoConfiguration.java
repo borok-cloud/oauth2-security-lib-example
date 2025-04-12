@@ -7,7 +7,8 @@ import org.springframework.context.annotation.Import;
 @Import({
         SecurityAutoConfig.class,
         NoopSecurityConfig.class,
-        OktaConfig.class
+        OktaConfig.class,
+        //SecurityRuleProperties.class,
        // JwtDecoderConfig.class  // (Optional: if you have other split config classes)
 })
 public class CoreAutoConfiguration {

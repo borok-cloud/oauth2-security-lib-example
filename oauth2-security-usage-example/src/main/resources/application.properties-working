@@ -44,4 +44,4 @@ spring.devtools.remote.debug.local-port=8000
 logging.level.org.springframework.boot.autoconfigure=DEBUG
 
 # Either commented out or explicitly true
-security.oauth2.enabled=false
+security.oauth2.enabled=true
