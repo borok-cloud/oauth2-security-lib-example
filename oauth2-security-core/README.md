@@ -26,6 +26,23 @@ Once the dependency is added and the configuration is provided, the security fea
 
 No custom configuration or additional setup is required, making it ideal for applications that need quick and standardized security settings.
 
+
+### 🔐 HTTP to HTTPS Redirect Filter (Optional)
+
+This shared security library includes an **optional redirect filter** that ensures secure communication by redirecting HTTP requests to HTTPS. It is especially useful in **containerized environments like AWS ECS**, where:
+
+- Incoming traffic from a **load balancer (ALB)** terminates HTTPS and forwards requests over **HTTP** to the container.
+- Applications inside the container receive HTTP but need to **redirect clients to HTTPS** to enforce secure access.
+
+#### ✅ Default Behavior
+
+The redirect filter is **enabled by default** to support secure setups. When a request comes in over HTTP, it issues a redirect (HTTP 302) to the HTTPS version of the same URL.
+
+```yaml
+security:
+  redirect-to-https: true
+
+
 ---
 
 ## How to Use

@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant Client
+    participant Gateway (ECS HTTPS)
+    participant App (ECS HTTP)
+    participant CoreSecurityLibrary
+    participant Okta
+
+    Client->>Gateway (ECS HTTPS): Request to https://myapp.com/myapp/api/secure/data
+    Gateway->>App (ECS HTTP): Forward HTTP request to /myapp/api/secure/data
+    App->>CoreSecurityLibrary: Filter chain initialized
+    CoreSecurityLibrary->>CoreSecurityLibrary: RedirectHttpToHttpsFilter (optional)
+    CoreSecurityLibrary->>CoreSecurityLibrary: Validate JWT with Okta
+    CoreSecurityLibrary->>Okta: Fetch JWKs from /.well-known/jwks.json
+    Okta-->>CoreSecurityLibrary: Return public keys
+    CoreSecurityLibrary->>App: Validate request, apply CORS and role rules
+    App->>Client: Return secure response (via Gateway)
+
+    Note over CoreSecurityLibrary: Provides auto-configuration\nCORS, permit-all, authority rules

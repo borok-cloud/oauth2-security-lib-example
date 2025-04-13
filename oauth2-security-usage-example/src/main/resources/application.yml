@@ -79,6 +79,7 @@ security:
     allowed-origins:
       - https://myfrontend.com
       - https://admin.myapp.io
+  redirect-http-to-https: false  # Set to 'false' to disable the redirect
 
 # === Actuator & Health ===
 management:

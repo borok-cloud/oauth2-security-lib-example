@@ -18,7 +18,9 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.web.cors.CorsConfiguration;
@@ -37,6 +39,9 @@ public class SecurityAutoConfig {
 
     @Value("${security.session-policy:IF_REQUIRED}")
     SessionCreationPolicy sessionPolicy;
+
+    @Value("${security.redirect-http-to-https:true}")  // Default value is true
+    private boolean redirectHttpToHttps;
 
     private final SecurityRuleProperties props;
 
@@ -116,6 +121,11 @@ public class SecurityAutoConfig {
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthConverter())))
                 .sessionManagement(s -> s.sessionCreationPolicy(sessionPolicy));
+
+        // Conditionally add the redirect filter based on the property
+        if (redirectHttpToHttps) {
+            http.addFilterBefore(new RedirectHttpToHttpsFilter(), UsernamePasswordAuthenticationFilter.class);
+        }
         return http.build();
     }
 

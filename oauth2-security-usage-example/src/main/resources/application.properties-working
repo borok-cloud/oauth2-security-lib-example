@@ -45,3 +45,7 @@ logging.level.org.springframework.boot.autoconfigure=DEBUG
 
 # Either commented out or explicitly true
 security.oauth2.enabled=true
+
+# Set to 'false' to disable the redirect
+security.redirect-http-to-https=true
+
